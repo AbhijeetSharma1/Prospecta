@@ -1,0 +1,76 @@
+Question :  Suppose you have a CSV file with the data below.
+
+A1: 5, A2: 7, A3: 9, B1: 3, B2: 8, B3: =4+5, C1: =5+A1, C2: =A2+B2, C3: =C2+B3
+
+This can be represented in an excel sheet below:
+
+A B C
+
+1 5 3 =5+A1
+
+2 7 8 =A2+B2
+
+3 9 =4+5 =C2+B3
+
+I want a program that will take the CSV input above and produce CSV output
+with the results. If it is a value, then return a value. If it is a formula then
+ calculate the formula and return the value of that formula
+
+
+
+ Question 1 :  How will you tackle the challenge above?
+
+ Ans : step1 :  Firstly create a file  in  current directory and put this information
+          inside that in a single line.
+
+          BufferedReader br = new BufferedReader(new FileReader("csv.file");
+ step2 :  With the help of BufferedReader class object,read the data by using readLine() method.
+          String data = br.readLine();
+
+
+ step3 : after that convert this whole string in Array of String using split method.
+         String[]str = data.split(",");
+
+
+ step4 : then create a map and store it in the form of key-value pairs using loop and split method.
+ 		 Map<String,String> map = new LinkedHashMap<>();
+ 		 Map<String,Integer> map = new LinkedHashMap<>();
+ 		 for(int i=0;i<str.length();i++){
+ 		 String[] str2 = str[i].split(":");
+ 		 map.put(str2[0].trim(),str2[1].trim());
+ 		 }
+
+ step5 : After that create One more Map for converting those strings values in the form of Integer value.
+         With the help of running a loop on first map  check that there is simple Integer value or any
+         function is there.
+         If there will be any function then solve it and after that put the final Integer value for that key in
+         the second map. 
+
+
+step 6 : at the end,loop the map using entry and show the result in form of new key-value pairs.
+
+-----------------------------------------------------------------------------------------------------------------
+
+Question 2 :  What type of errors you would you check for?
+
+
+Ans : While implementing the above solution, we need to check for various errors, such as:
+
+Circular references: We should check for circular references, where a formula depends on its own value, or on the value of another cell that depends on the formula's own value. This can result in an infinite loop while evaluating the formula, and should be avoided.
+
+Division by zero: We should check for division by zero errors, which can occur when a formula divides a value by zero.
+
+Syntax errors: we should check for syntax errors in the formula, such as invalid characters or incorrect usage of functions. Users can break the code in various ways, such as:
+
+Providing invalid input: users can provide input in an invalid format, such as a CSV file that doesn't follow the expected format. We should check for such errors and provide informative error messages.
+
+Causing performance issues: Users can provide input that causes performance issues, such as large CSV files or formulas that take a long time to evaluate. We should optimize our code to handle such cases efficiently.
+
+----------------------------------------------------------------------------
+
+Question 3 : How might a user break your code?
+
+Ans :
+- invalid CSV input data 
+- Input data with missing cell dependencies
+- Delete the input or output files during program execution
